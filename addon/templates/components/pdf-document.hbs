@@ -1,0 +1,20 @@
+{{#if template}}
+  {{yield}}
+{{else}}
+  {{#if isPending}}
+    Loading...
+  {{else}}
+    {{#if isSettled}}
+      {{#if isFulfilled}}
+        {{#each page in pages}}
+          {{pdf-page page=page scale=scale}}
+        {{/each}}
+      {{/if}}
+      {{#if isRejected}}
+        Rejected: {{reason}}
+      {{/if}}
+    {{else}}
+
+    {{/if}}
+  {{/if}}
+{{/if}}

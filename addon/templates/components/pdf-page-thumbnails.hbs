@@ -1,0 +1,8 @@
+{{#if template}}
+  {{yield}}
+{{else}}
+  {{thumbnailView}}
+  {{#each pageView in pageViews}}
+    {{view thumbnailViewClass pageView=pageView}}
+  {{/each}}
+{{/if}}

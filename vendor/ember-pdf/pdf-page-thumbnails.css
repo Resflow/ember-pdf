@@ -1,0 +1,7 @@
+.ember-pdf-page-thumbnails {
+  padding: 0px 37px;
+}
+
+.ember-pdf-page-thumbnails:focus {
+  outline: 0;
+}

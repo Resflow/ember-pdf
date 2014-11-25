@@ -1,0 +1,8 @@
+{{#if template}}
+  {{yield}}
+{{else}}
+  {{pdf-page-canvas width=width height=height viewName="canvasView"}}
+  {{#if isPending}}
+    Loading...
+  {{/if}}
+{{/if}}
