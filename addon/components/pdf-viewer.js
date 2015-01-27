@@ -16,6 +16,7 @@ var PDFViewerComponent = Component.extend({
   src: null,
   scale: DEFAULT_SCALE,
   'on-delete-pages': 'deletePages',
+  'on-close-viewer': 'closeViewer',
 
   zoomOptions: [{
     label: 'Automatic Zoom',
@@ -71,6 +72,10 @@ var PDFViewerComponent = Component.extend({
       this.sendAction('on-delete-pages', pageIndices);
     },
 
+    close: function () {
+      this.sendAction('on-close-viewer');
+    },
+
     print: function () {
       window.print();
     }
@@ -101,6 +106,8 @@ var PDFViewerComponent = Component.extend({
     get(this, 'pageViews').invoke('beforePrint');
     var body = document.querySelector('body');
     body.setAttribute('data-mozPrintCallback', true);
+    var div = document.getElementById('ember-pdf-print-container');
+    body.appendChild(div);
   },
 
   afterPrint: function () {

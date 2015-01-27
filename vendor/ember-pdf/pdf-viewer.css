@@ -54,11 +54,11 @@
 }
 
 /* Rules for browsers that support mozPrintCallback */
-body[data-mozPrintCallback] .ember-pdf-sidebar-container,
-body[data-mozPrintCallback] .ember-pdf-main-container {
+body[data-mozPrintCallback] * {
   display: none;
 }
 
-body[data-mozPrintCallback] #ember-pdf-print-container {
+body[data-mozPrintCallback] #ember-pdf-print-container,
+body[data-mozPrintCallback] #ember-pdf-print-container * {
   display: block;
 }
