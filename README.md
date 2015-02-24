@@ -1,4 +1,4 @@
-# ember-pdf
+# Ember-pdf
 
 This README outlines the details of collaborating on this Ember addon.
 

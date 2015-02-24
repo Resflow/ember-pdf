@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import WithStyleMixin from 'with-style-mixin/mixins/with-style';
 import Component from '../runtime/component';
 import ProxyMixin from '../mixins/proxy';
 import { DEFAULT_SCALE, MAX_AUTO_SCALE } from '../settings';
@@ -16,12 +15,11 @@ var reads = computed.reads;
 var get = Ember.get;
 var set = Ember.set;
 
-var PDFPageComponent = Component.extend(WithStyleMixin, ProxyMixin, PromiseProxyMixin, {
+var PDFPageComponent = Component.extend(ProxyMixin, PromiseProxyMixin, {
   layout: layout,
   canvasView: null,
   thumbnailView: null,
   classNames: ['ember-pdf-page'],
-  styleBindings: ['width[px]', 'height[px]', 'show:display?block:none'],
   show: reads('isSettled'),
   hasPendingChanges: true,
   scale: DEFAULT_SCALE,
@@ -29,6 +27,17 @@ var PDFPageComponent = Component.extend(WithStyleMixin, ProxyMixin, PromiseProxy
   width: reads('viewport.width'),
   height: reads('viewport.height'),
   canvasContext: reads('canvasView.renderingContext2d'),
+  attributeBindings: ['style'],
+  
+  style: computed('width', 'height', 'show', function () {
+    var styles = [
+      'width: ' + get(this, 'width') + 'px',
+      'height: ' + get(this, 'height') + 'px',
+      'display: ' + (get(this, 'show') ? 'block' : 'none')
+    ];
+
+    return styles.join('; ');
+  }),
 
   viewport: computed('content', 'isFulfilled', 'scaleValue', function () {
     if (get(this, 'isFulfilled') && get(this, 'content')) {
