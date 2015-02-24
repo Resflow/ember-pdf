@@ -53,12 +53,39 @@
   border: 1px solid rgb(166, 166, 166);
 }
 
-/* Rules for browsers that support mozPrintCallback */
-body[data-mozPrintCallback] * {
+@page {
+  margin: 0;
+}
+
+#ember-pdf-print-container {
   display: none;
 }
 
-body[data-mozPrintCallback] #ember-pdf-print-container,
-body[data-mozPrintCallback] #ember-pdf-print-container * {
-  display: block;
+@media print {
+  /* General rules for printing. */
+  body {
+    background: transparent none;
+  }
+
+  /* Rules for browsers that support mozPrintCallback */
+  body[data-mozPrintCallback] * {
+    display: none;
+  }
+
+  body[data-mozPrintCallback] #ember-pdf-print-container,
+  body[data-mozPrintCallback] #ember-pdf-print-container * {
+    display: block;
+  }
+
+  #ember-pdf-print-container canvas {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+  }
+
+  #ember-pdf-print-container div {
+    page-break-after: always;
+    page-break-inside: avoid;
+  }
 }
