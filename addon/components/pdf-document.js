@@ -6,7 +6,8 @@ import ProxyMixin from '../mixins/proxy';
 import { DEFAULT_SCALE } from '../settings';
 import layout from '../templates/components/pdf-document';
 
-PDFJS.workerSrc = '/assets/pdf.worker.js';
+PDFJS.workerSrc = PDFJS.workerSrc || '/assets/pdf.worker.js';
+
 
 var get = Ember.get;
 var set = Ember.set;
