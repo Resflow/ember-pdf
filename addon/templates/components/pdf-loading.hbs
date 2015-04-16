@@ -1,7 +1,13 @@
-<h1 style='text-align: center;'>
-  {{#if message}}
-    {{message}}
+<h1 class='ember-pdf-loading' style='text-align: center;'>
+  {{#if template}}
+    {{yield}}
   {{else}}
-    {{defaultMessage}}
+
+    {{#if message}}
+      {{message}}
+    {{else}}
+      {{defaultMessage}}
+    {{/if}}
+    
   {{/if}}
 </h1>

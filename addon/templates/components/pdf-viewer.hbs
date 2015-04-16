@@ -34,8 +34,8 @@
 
   {{#view class="ember-pdf-document-container" viewName="documentContainerView"}}
     {{pdf-document src=src scale=scale viewName="documentView"}}
-    {{#if view.isPDFLoading}}
-      {{pdf-loading message=loadingMessage}}
+    {{#if isPDFLoading}}
+      {{pdf-loading message=loadingMessage documentContainerView=view}}
     {{/if}}
   {{/view}}
 

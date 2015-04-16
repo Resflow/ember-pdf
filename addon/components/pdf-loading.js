@@ -14,47 +14,47 @@ var PDFLoadingComponent = Component.extend({
   defaultMessage: 'Loading...',
 
   didInsertElement: function () {
-    var parentView = get(this, 'parentView');
-    set(this, 'parentHeight', parentView.element.clientHeight);
-    set(this, 'parentWidth', parentView.element.clientWidth);
+    var documentContainerView = get(this, 'documentContainerView');
+    set(this, 'documentContainerHeight', documentContainerView.element.clientHeight);
+    set(this, 'documentContainerWidth', documentContainerView.element.clientWidth);
   },
 
-  width: computed('parentWidth', function () {
-    var width = get(this, 'parentWidth');
+  componentWidth: computed('documentContainerWidth', function () {
+    var width = get(this, 'documentContainerWidth');
     if (width > 0) {
       return width / 4;
     } 
     return 0;
   }),
 
-  height: computed('parentHeight', function () {
-    var height = get(this, 'parentHeight');
+  componentHeight: computed('documentContainerHeight', function () {
+    var height = get(this, 'documentContainerHeight');
     if (height > 0) {
       return height / 2;
     }
     return 0;
   }),
 
-  marginLeft: computed('width', function () {
-    var width = get(this, 'width');
+  marginLeft: computed('componentWidth', function () {
+    var width = get(this, 'componentWidth');
     if (width > 0) {
       return width / 2;
     }
     return 0;
   }),
 
-  marginTop: computed('height', function () {
-    var height = get(this, 'height');
+  marginTop: computed('componentHeight', function () {
+    var height = get(this, 'componentHeight');
     if (height > 0) {
       return height / 2;
     }
     return 0;
   }),
 
-  style: computed('width', 'height', function () {
+  style: computed('componentWidth', 'componentHeight', function () {
     var styles = [
-      'width: ' + get(this, 'width') + 'px',
-      'height: ' + get(this, 'height') + 'px',
+      'width: ' + get(this, 'componentWidth') + 'px',
+      'height: ' + get(this, 'componentHeight') + 'px',
       'top: ' + '50%',
       'left: ' + '50%',
       'margin-left: ' + '-' + get(this, 'marginLeft') + 'px',
@@ -66,7 +66,7 @@ var PDFLoadingComponent = Component.extend({
     ];
 
     return styles.join('; ');
-  }),
+  })
 
 });
 

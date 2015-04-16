@@ -53,6 +53,7 @@ var PDFViewerComponent = Component.extend({
   documentContainerView: null,
   documentView: reads('documentContainerView.documentView'),
   pageViews: reads('documentView.pageViews'),
+  isPDFLoading: reads('documentView.isPending'),
 
   actions: {
     deleteSelectedPages: function () {

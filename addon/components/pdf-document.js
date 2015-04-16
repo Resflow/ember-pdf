@@ -72,16 +72,8 @@ var PDFDocumentComponent = Component.extend(ProxyMixin, PromiseProxyMixin, {
         reason: '<pdf-document> missing a valid src or data attribute, so nothing to load.'
       });
     }
-  })),
-
-  _notifyDocumentContainer: observer('isPending', on('init', function () {
-    var parent = get(this, 'parentView');
-    var isPending = get(this, 'isPending');
-
-    if (parent) { 
-      set(parent, 'isPDFLoading', isPending); 
-    }
   }))
+
 });
 
 export default PDFDocumentComponent;
