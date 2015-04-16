@@ -31,9 +31,15 @@
       <div {{action "close"}} class="ember-pdf-toolbar-button">Close</div>
     </div>
   {{/pdf-toolbar}}
+
   {{#view class="ember-pdf-document-container" viewName="documentContainerView"}}
     {{pdf-document src=src scale=scale viewName="documentView"}}
+    {{#if view.isPDFLoading}}
+      {{pdf-loading message=loadingMessage}}
+    {{/if}}
   {{/view}}
+
+
 </div>
 <div id="ember-pdf-print-container"></div>
 {{!-- https://github.com/mozilla/pdf.js/blob/master/web/viewer-snippet-mozPrintCallback-polyfill.html --}}
