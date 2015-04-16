@@ -14,23 +14,23 @@ var PDFLoadingComponent = Component.extend({
   defaultMessage: 'Loading...',
 
   didInsertElement: function () {
-    var documentContainerView = get(this, 'documentContainerView');
-    set(this, 'documentContainerHeight', documentContainerView.element.clientHeight);
-    set(this, 'documentContainerWidth', documentContainerView.element.clientWidth);
+    var parentElement = get(this, 'parentView.element');
+    set(this, 'parentHeight', parentElement.clientHeight);
+    set(this, 'parentWidth', parentElement.clientWidth);
   },
 
-  componentWidth: computed('documentContainerWidth', function () {
-    var width = get(this, 'documentContainerWidth');
+  componentWidth: computed('parentWidth', function () {
+    var width = get(this, 'parentWidth');
     if (width > 0) {
       return width / 4;
     } 
     return 0;
   }),
 
-  componentHeight: computed('documentContainerHeight', function () {
-    var height = get(this, 'documentContainerHeight');
+  componentHeight: computed('parentHeight', function () {
+    var height = get(this, 'parentHeight');
     if (height > 0) {
-      return height / 2;
+      return height / 5;
     }
     return 0;
   }),
@@ -51,26 +51,12 @@ var PDFLoadingComponent = Component.extend({
     return 0;
   }),
 
-  displayType: computed('isVisible', function () {
-    if (get(this, 'isVisible')) {
-      return 'inline';
-    }
-    return 'none';
-  }),
-
-  style: computed('componentWidth', 'componentHeight', function () {
+  style: computed('componentWidth', 'componentHeight', 'marginLeft', 'marginTop', function () {
     var styles = [
       'width: ' + get(this, 'componentWidth') + 'px',
       'height: ' + get(this, 'componentHeight') + 'px',
-      'top: ' + '50%',
-      'left: ' + '50%',
       'margin-left: ' + '-' + get(this, 'marginLeft') + 'px',
-      'margin-top: ' + '-' + get(this, 'marginTop') + 'px',
-      'position: ' + 'absolute',
-      'z-index: ' + '999',
-      'background-color: ' + 'rgb(0,0,170)',
-      'opacity: ' + '0.9',
-      'display: ' + get(this, 'displayType')
+      'margin-top: ' + '-' + get(this, 'marginTop') + 'px'
     ];
 
     return styles.join('; ');

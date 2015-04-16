@@ -16,6 +16,7 @@ module.exports = {
     app.import('vendor/ember-pdf/pdf-page.css');
     app.import('vendor/ember-pdf/pdf-page-thumbnails.css');
     app.import('vendor/ember-pdf/pdf-page-thumbnail.css');
+    app.import('vendor/ember-pdf/pdf-loading.css');
 
     app.import('vendor/polyfills/HTMLCanvasElement/mozPrintCallback.js');
 
