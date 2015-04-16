@@ -29,6 +29,7 @@ var PDFDocumentComponent = Component.extend(ProxyMixin, PromiseProxyMixin, {
   scale: DEFAULT_SCALE,
   url: alias('src'),
   document: alias('promise'),
+  
 
   init: function () {
     this._super();
@@ -72,6 +73,7 @@ var PDFDocumentComponent = Component.extend(ProxyMixin, PromiseProxyMixin, {
       });
     }
   }))
+
 });
 
 export default PDFDocumentComponent;

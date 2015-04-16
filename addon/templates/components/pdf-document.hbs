@@ -1,9 +1,9 @@
 {{#if template}}
   {{yield}}
 {{else}}
-  {{#if isPending}}
-    Loading...
-  {{else}}
+
+  {{#unless isPending}}
+    
     {{#if isSettled}}
       {{#if isFulfilled}}
         {{#each page in pages}}
@@ -13,8 +13,8 @@
       {{#if isRejected}}
         Rejected: {{reason}}
       {{/if}}
-    {{else}}
-
     {{/if}}
-  {{/if}}
+
+  {{/unless}}
+  
 {{/if}}

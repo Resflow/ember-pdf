@@ -1,0 +1,13 @@
+<h1 class="ember-pdf-loading-text">
+  {{#if template}}
+    {{yield}}
+  {{else}}
+
+    {{#if message}}
+      {{message}}
+    {{else}}
+      {{defaultMessage}}
+    {{/if}}
+
+  {{/if}}
+</h1>

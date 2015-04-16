@@ -1,0 +1,17 @@
+.ember-pdf-loading {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  z-index: 999;
+  border: none;
+  padding: 15px;
+  opacity: .5;
+  color: #fff;
+  background-color: #000;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+
+.ember-pdf-loading-text {
+  text-align: center;
+}
