@@ -51,6 +51,13 @@ var PDFLoadingComponent = Component.extend({
     return 0;
   }),
 
+  displayType: computed('isVisible', function () {
+    if (get(this, 'isVisible')) {
+      return 'inline';
+    }
+    return 'none';
+  }),
+
   style: computed('componentWidth', 'componentHeight', function () {
     var styles = [
       'width: ' + get(this, 'componentWidth') + 'px',
@@ -61,8 +68,9 @@ var PDFLoadingComponent = Component.extend({
       'margin-top: ' + '-' + get(this, 'marginTop') + 'px',
       'position: ' + 'absolute',
       'z-index: ' + '999',
-      'background-color: ' + 'rgb(255,0,255)',
-      'opacity: ' + '0.5'
+      'background-color: ' + 'rgb(0,0,170)',
+      'opacity: ' + '0.9',
+      'display: ' + get(this, 'displayType')
     ];
 
     return styles.join('; ');
