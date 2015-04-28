@@ -3,6 +3,8 @@ import Component from '../runtime/component';
 
 var computed = Ember.computed;
 var get = Ember.get;
+var set = Ember.set
+var on = Ember.on;
 
 var CanvasComponent = Component.extend({
   tagName: 'canvas',
