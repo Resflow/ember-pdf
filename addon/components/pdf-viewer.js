@@ -6,7 +6,8 @@ import layout from '../templates/components/pdf-viewer';
 var $ = Ember.$;
 var get = Ember.get;
 var set = Ember.set;
-var throttle = Ember.run.throttle;
+var bindInRunLoop = Ember.run.bind;
+var throttleInRunLoop = Ember.run.throttle;
 var on = Ember.on;
 var reads = Ember.computed.reads;
 
@@ -91,16 +92,13 @@ var PDFViewerComponent = Component.extend({
 
   setupDocumentScrollListener: on('didInsertElement', function () {
     var viewer = this;
-    get(this, 'documentContainerView').$().on('scroll', function () {
-      throttle(viewer, 'selectCurretPageViewThumbnail', 300, false);
+    get(this, 'documentContainerView').$().on('scroll.' + get(this, 'elementId'), function () {
+      throttleInRunLoop(viewer, 'selectCurretPageViewThumbnail', 300, false);
     });
   }),
 
   teardownDocumentScrollListener: on('willDestroyElement', function () {
-    var viewer = this;
-    get(this, 'documentContainerView').$().on('scroll', function () {
-      throttle(viewer, 'selectCurretPageViewThumbnail', 300, false);
-    });
+    get(this, 'documentContainerView').$().off('scroll.' + get(this, 'elementId'));
   }),
 
   beforePrint: function () {
@@ -124,8 +122,8 @@ var PDFViewerComponent = Component.extend({
   },
 
   setupPrintListeners: on('willInsertElement', function () {
-    $(window).on('beforeprint.' + get(this, 'elementId'), $.bind.call(this.beforePrint, this));
-    $(window).on('afterprint.' + get(this, 'elementId'), $.bind.call(this.afterPrint, this));
+    $(window).on('beforeprint.' + get(this, 'elementId'), bindInRunLoop(this, 'beforePrint'));
+    $(window).on('afterprint.' + get(this, 'elementId'), bindInRunLoop(this, 'afterPrint'));
   }),
 
   teardownPrintListeners: on('willDestroyElement', function () {
