@@ -13,11 +13,14 @@ var PDFPageThumbnailComponent = CanvasComponent.extend({
   classNames: ['ember-pdf-page-thumbnail'],
   classNameBindings: ['isSelected:ember-pdf-page-thumbnail-selected'],
   pageView: null,
-  pageCanvas: reads('pageView.canvasView.element'),
 
   isSelected: false,
   width: 100,
   height: 129,
+
+  pageCanvas: computed('pageView.canvasView', function () {
+    return get(this, 'pageView.canvasView.element');
+  }),
 
   _updateHeightToMatchPage: observer('pageView.height', 'width', function () {
     var originalWidth = get(this, 'pageView.width');
