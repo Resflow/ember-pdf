@@ -83,7 +83,7 @@ var PDFViewerComponent = Component.extend({
     }
   },
 
-  selectCurretPageViewThumbnail: function () {
+  selectCurrentPageViewThumbnail: function () {
     var visibleViews = findVisibleViews(get(this, 'pageViews'));
     if (get(visibleViews, 'length') !== 0) {
       set(visibleViews, 'lastObject.thumbnailView.isSelected', true);
@@ -93,7 +93,7 @@ var PDFViewerComponent = Component.extend({
   setupDocumentScrollListener: on('didInsertElement', function () {
     var viewer = this;
     get(this, 'documentContainerView').$().on('scroll.' + get(this, 'elementId'), function () {
-      throttleInRunLoop(viewer, 'selectCurretPageViewThumbnail', 300, false);
+      throttleInRunLoop(viewer, 'selectCurrentPageViewThumbnail', 300, false);
     });
   }),
 
