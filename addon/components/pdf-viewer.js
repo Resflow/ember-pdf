@@ -58,20 +58,12 @@ var PDFViewerComponent = Component.extend({
 
   actions: {
     deleteSelectedPages: function () {
-      this.send('deletePages', get(this, 'pageThumbnailsView.selectedPageIndices'));
+      this.send('deletePages', get(this, 'pageThumbnailsView.selectedPageNumbers'));
     },
 
-    deletePages: function (pageIndices) {
-      var pageViews = get(this, 'documentView.pageViews');
-      var pages = get(this, 'documentView.pages');
-      var pageView;
-
-      for (var i = 0, l = get(pageIndices, 'length'); i < l; i++) {
-        pageView = pageViews.findBy('pageIndex', pageIndices.objectAt(i));
-        pages.removeAt(pageViews.indexOf(pageView));
-      }
-
-      this.sendAction('on-delete-pages', pageIndices);
+    deletePages: function (pageNumbers) {
+      var pageCount = get(this, 'documentView.numPages');
+      this.sendAction('on-delete-pages', pageNumbers, pageCount);
     },
 
     close: function () {
