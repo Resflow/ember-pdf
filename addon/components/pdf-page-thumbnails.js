@@ -33,6 +33,7 @@ var PDFPageThumbnailsComponent = Component.extend({
 
   selectedThumbnailViews: filterBy('thumbnailViews', 'isSelected'),
   selectedPageIndices: computed.mapBy('selectedThumbnailViews', 'pageView.pageIndex'),
+  selectedPageNumbers: computed.mapBy('selectedThumbnailViews', 'pageView.pageNumber'),
 
   canSelectMultipleThumbnails: false,
 
@@ -57,7 +58,7 @@ var PDFPageThumbnailsComponent = Component.extend({
         case 46:
           event.preventDefault();
           console.log('delete');
-          this.sendAction('on-delete-pages', get(this, 'selectedPageIndices'));
+          this.sendAction('on-delete-pages', get(this, 'selectedPageNumbers'));
       }
     }
   },
