@@ -11,9 +11,9 @@
       <div {{action "deleteSelectedPages"}} class="ember-pdf-toolbar-button">Delete</div>
     </div>
   {{/pdf-toolbar}}
-  {{#view class="ember-pdf-page-thumbnails-container"}}
+  <div class="ember-pdf-page-thumbnails-container">
     {{pdf-page-thumbnails pageViews=pageViews viewName="parentView.pageThumbnailsView"}}
-  {{/view}}
+  </div>
 </div>
 <div class="ember-pdf-main-container">
   {{#pdf-toolbar}}
@@ -31,11 +31,10 @@
       <div {{action "close"}} class="ember-pdf-toolbar-button">Close</div>
     </div>
   {{/pdf-toolbar}}
-
-  {{#view class="ember-pdf-document-container" viewName="documentContainerView"}}
+  <div class="ember-pdf-document-container">
     {{pdf-document src=src scale=scale viewName="documentView"}}
     {{pdf-loading message=loadingMessage isVisible=isPDFLoading}}
-  {{/view}}
+  </div>
 
 
 </div>

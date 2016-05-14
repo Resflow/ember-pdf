@@ -1,21 +1,17 @@
 import Ember from 'ember';
 import Component from '../runtime/component';
-import ProxyMixin from '../mixins/proxy';
 import { DEFAULT_SCALE, MAX_AUTO_SCALE } from '../settings';
 import layout from '../templates/components/pdf-page';
 
-var $ = Ember.$;
-var PromiseProxyMixin = Ember.PromiseProxyMixin;
-var scheduleOnceInRunLoop = Ember.run.scheduleOnce;
-var observer = Ember.observer;
-var on = Ember.on;
-var computed = Ember.computed;
-var alias = computed.alias;
-var reads = computed.reads;
-var get = Ember.get;
-var set = Ember.set;
+const { $, get, set, on, computed, observer } = Ember;
+const { alias, reads } = computed;
+let scheduleOnceInRunLoop = Ember.run.scheduleOnce;
 
-var PDFPageComponent = Component.extend(ProxyMixin, PromiseProxyMixin, {
+/**
+ * @module Ember.Component
+ * @class PDFPageComponent
+ */
+let PDFPageComponent = Component.extend({
   layout: layout,
   canvasView: null,
   thumbnailView: null,
@@ -28,9 +24,9 @@ var PDFPageComponent = Component.extend(ProxyMixin, PromiseProxyMixin, {
   height: reads('viewport.height'),
   canvasContext: reads('canvasView.renderingContext2d'),
   attributeBindings: ['style'],
-  
+
   style: computed('width', 'height', 'show', function () {
-    var styles = [
+    let styles = [
       'width: ' + get(this, 'width') + 'px',
       'height: ' + get(this, 'height') + 'px',
       'display: ' + (get(this, 'show') ? 'block' : 'none')
@@ -46,21 +42,21 @@ var PDFPageComponent = Component.extend(ProxyMixin, PromiseProxyMixin, {
   }),
 
   registerWithDocumentView: on('init', function () {
-    var pageViews = get(this, 'parentView.pageViews');
+    let pageViews = get(this, 'parentView.pageViews');
     if (pageViews instanceof Array) {
       pageViews.pushObject(this);
     }
   }),
 
   unregisterWithDocumentView: on('willDestroyElement', function () {
-    var pageViews = get(this, 'parentView.pageViews');
+    let pageViews = get(this, 'parentView.pageViews');
     if (pageViews instanceof Array) {
       pageViews.removeObject(this);
     }
   }),
-  
+
   withPage: function (callback) {
-    var component = this;
+    let component = this;
     this.then(function (page) {
       callback.call(component, page);
     });
@@ -74,7 +70,7 @@ var PDFPageComponent = Component.extend(ProxyMixin, PromiseProxyMixin, {
 
   renderPage: function (hasPendingChanges) {
     this.withPage(function (page) {
-      var pageView = this;
+      let pageView = this;
       page.render({
         canvasContext: this.get('canvasContext'),
         viewport: this.get('viewport')
@@ -90,7 +86,7 @@ var PDFPageComponent = Component.extend(ProxyMixin, PromiseProxyMixin, {
   },
 
   setupResizeHandler: on('willInsertElement', function () {
-    var component = this;
+    let component = this;
     $(window).on('resize.' + get(this, 'elementId'), function () {
        Ember.run.debounce(component, 'notifyPropertyChange', 'scaleValue', 500);
     });
@@ -101,16 +97,16 @@ var PDFPageComponent = Component.extend(ProxyMixin, PromiseProxyMixin, {
   }),
 
   scaleValue: computed('scale', function () {
-    var scale = this.get('scale');
-    var scaleValue = parseFloat(scale, 10);
+    let scale = this.get('scale');
+    let scaleValue = parseFloat(scale, 10);
     if (scaleValue > 0) {
       return scaleValue;
     } else {
-      var parentElement = this.get('parentView.element');
-      var defaultViewport = get(this, 'content').getViewport(1);
+      let parentElement = this.get('parentView.element');
+      let defaultViewport = get(this, 'content').getViewport(1);
 
-      var pageWidthScale = parentElement.clientWidth / defaultViewport.width;
-      var pageHeightScale = parentElement.clientHeight / defaultViewport.height;
+      let pageWidthScale = parentElement.clientWidth / defaultViewport.width;
+      let pageHeightScale = parentElement.clientHeight / defaultViewport.height;
 
       switch (scale) {
         case 'page-actual':
@@ -144,24 +140,24 @@ var PDFPageComponent = Component.extend(ProxyMixin, PromiseProxyMixin, {
   }),
 
   beforePrint: function () {
-    var pdfPage = get(this, 'content');
+    let pdfPage = get(this, 'content');
 
-    var viewport = pdfPage.getViewport(1);
+    let viewport = pdfPage.getViewport(1);
     // Use the same hack we use for high dpi displays for printing to get better
     // output until bug 811002 is fixed in FF.
-    var PRINT_OUTPUT_SCALE = 2;
-    var canvas = document.createElement('canvas');
+    let PRINT_OUTPUT_SCALE = 2;
+    let canvas = document.createElement('canvas');
     canvas.width = Math.floor(viewport.width) * PRINT_OUTPUT_SCALE;
     canvas.height = Math.floor(viewport.height) * PRINT_OUTPUT_SCALE;
 
-    var printContainer = document.getElementById('ember-pdf-print-container');
-    var canvasWrapper = document.createElement('div');
+    let printContainer = document.getElementById('ember-pdf-print-container');
+    let canvasWrapper = document.createElement('div');
 
     canvasWrapper.appendChild(canvas);
     printContainer.appendChild(canvasWrapper);
 
     canvas.mozPrintCallback = function (obj) {
-      var ctx = obj.context;
+      let ctx = obj.context;
 
       ctx.save();
       ctx.fillStyle = 'rgb(255, 255, 255)';
@@ -169,7 +165,7 @@ var PDFPageComponent = Component.extend(ProxyMixin, PromiseProxyMixin, {
       ctx.restore();
       ctx.scale(PRINT_OUTPUT_SCALE, PRINT_OUTPUT_SCALE);
 
-      var renderContext = {
+      let renderContext = {
         canvasContext: ctx,
         viewport: viewport,
         intent: 'print'

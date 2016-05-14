@@ -3,15 +3,13 @@ import Component from '../runtime/component';
 import { DEFAULT_SCALE } from '../settings';
 import layout from '../templates/components/pdf-viewer';
 
-var $ = Ember.$;
-var get = Ember.get;
-var set = Ember.set;
-var bindInRunLoop = Ember.run.bind;
-var throttleInRunLoop = Ember.run.throttle;
-var on = Ember.on;
-var reads = Ember.computed.reads;
+const { $, get, set, on, computed, run } = Ember;
+const { reads } = computed;
 
-var PDFViewerComponent = Component.extend({
+let bindInRunLoop = run.bind;
+let throttleInRunLoop = run.throttle;
+
+let PDFViewerComponent = Component.extend({
   layout: layout,
   classNames: ['ember-pdf-viewer'],
   src: null,
@@ -62,7 +60,7 @@ var PDFViewerComponent = Component.extend({
     },
 
     deletePages: function (pageNumbers) {
-      var pageCount = get(this, 'documentView.numPages');
+      let pageCount = get(this, 'documentView.numPages');
       this.sendAction('on-delete-pages', pageNumbers, pageCount);
     },
 
@@ -76,14 +74,14 @@ var PDFViewerComponent = Component.extend({
   },
 
   selectCurrentPageViewThumbnail: function () {
-    var visibleViews = findVisibleViews(get(this, 'pageViews'));
+    let visibleViews = findVisibleViews(get(this, 'pageViews'));
     if (get(visibleViews, 'length') !== 0) {
       set(visibleViews, 'lastObject.thumbnailView.isSelected', true);
     }
   },
 
   setupDocumentScrollListener: on('didInsertElement', function () {
-    var viewer = this;
+    let viewer = this;
     get(this, 'documentContainerView').$().on('scroll.' + get(this, 'elementId'), function () {
       throttleInRunLoop(viewer, 'selectCurrentPageViewThumbnail', 300, false);
     });
@@ -95,17 +93,17 @@ var PDFViewerComponent = Component.extend({
 
   beforePrint: function () {
     get(this, 'pageViews').invoke('beforePrint');
-    var body = document.querySelector('body');
+    let body = document.querySelector('body');
     body.setAttribute('data-mozPrintCallback', true);
-    var div = document.getElementById('ember-pdf-print-container');
+    let div = document.getElementById('ember-pdf-print-container');
     body.appendChild(div);
   },
 
   afterPrint: function () {
-    var body = document.querySelector('body');
+    let body = document.querySelector('body');
     body.removeAttribute('data-mozPrintCallback');
 
-    var div = document.getElementById('ember-pdf-print-container');
+    let div = document.getElementById('ember-pdf-print-container');
     while (div.hasChildNodes()) {
       div.removeChild(div.lastChild);
     }
@@ -131,15 +129,15 @@ function findVisibleViews(views) {
     return [];
   }
 
-  var scrollEl = get(views.objectAt(0), 'element').offsetParent;
-  var top = scrollEl.scrollTop, bottom = top + scrollEl.clientHeight;
-  var left = scrollEl.scrollLeft, right = left + scrollEl.clientWidth;
+  let scrollEl = get(views.objectAt(0), 'element').offsetParent;
+  let top = scrollEl.scrollTop, bottom = top + scrollEl.clientHeight;
+  let left = scrollEl.scrollLeft, right = left + scrollEl.clientWidth;
 
-  var visible = [], view, element;
-  var currentHeight, viewHeight, hiddenHeight, percentHeight;
-  var currentWidth, viewWidth;
+  let visible = [], view, element;
+  let currentHeight, viewHeight, hiddenHeight, percentHeight;
+  let currentWidth, viewWidth;
 
-  for (var i = 0, ii = views.length; i < ii; ++i) {
+  for (let i = 0, ii = views.length; i < ii; ++i) {
     view = views[i];
     element = get(view, 'element');
     currentHeight = element.offsetTop + element.clientTop;

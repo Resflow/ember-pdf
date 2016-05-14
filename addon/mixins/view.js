@@ -1,19 +1,17 @@
 import Ember from 'ember';
 
-var get = Ember.get;
-var set = Ember.set;
-var on = Ember.on;
+const { get, set, on } = Ember;
 
-var ViewMixin = Ember.Mixin.create({
+let ViewMixin = Ember.Mixin.create({
   isInDOM: false,
   setInDOM: on('didInsertElement', function () {
     set(this, 'isInDOM', true);
   }),
 
   scrollIntoViewIfNeeded: function (spot) {
-    var element = get(this, 'element');
-    var parent = element.offsetParent;
-      
+    let element = get(this, 'element');
+    let parent = element.offsetParent;
+
     switch (true) {
       // Is over top?
       case (element.offsetTop - parent.offsetTop < parent.scrollTop):
@@ -31,10 +29,10 @@ var ViewMixin = Ember.Mixin.create({
     // Assuming offsetParent is available (it's not available when viewer is in
     // hidden iframe or object). We have to scroll: if the offsetParent is not set
     // producing the error. See also animationStartedClosure.
-    var element = get(this, 'element');
-    var parent = element.offsetParent;
-    var offsetY = element.offsetTop + element.clientTop;
-    var offsetX = element.offsetLeft + element.clientLeft;
+    let element = get(this, 'element');
+    let parent = element.offsetParent;
+    let offsetY = element.offsetTop + element.clientTop;
+    let offsetX = element.offsetLeft + element.clientLeft;
 
     Ember.assert('offsetParent is not set -- cannot scroll', parent);
 

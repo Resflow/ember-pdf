@@ -2,16 +2,12 @@ import Ember from 'ember';
 import Component from '../runtime/component';
 import layout from '../templates/components/pdf-page-thumbnails';
 
-var $ = Ember.$;
-var get = Ember.get;
-var set = Ember.set;
-var on = Ember.on;
-var bindInRunLoop = Ember.run.bind;
-var computed = Ember.computed;
-var filter = computed.filter;
-var filterBy = computed.filterBy;
+const { $, get, set, on, computed, getOwner } = Ember;
+const { filter, filterBy } = computed;
 
-var PDFPageThumbnailsComponent = Component.extend({
+let bindInRunLoop = Ember.run.bind;
+
+let PDFPageThumbnailsComponent = Component.extend({
   layout: layout,
   classNames: ['ember-pdf-page-thumbnails'],
   attributeBindings: ['tabindex'],
@@ -19,12 +15,8 @@ var PDFPageThumbnailsComponent = Component.extend({
   pageViews: null,
   'on-delete-pages': 'deletePages',
 
-  // There's a longstanding bug that childViews is not set to be volatile(),
-  // even though it used to be before CP's were cachable() by default
-  childViews: Ember.View.childViewsProperty.volatile(),
-  
   thumbnailViewClass: computed(function () {
-    return this.container.lookupFactory('component:pdf-page-thumbnail');
+    return getOwner(this).lookup('component:pdf-page-thumbnail');
   }),
 
   thumbnailViews: filter('childViews', function (childView) {

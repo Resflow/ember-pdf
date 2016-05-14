@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import Component from '../runtime/component';
 
-const { computed, get, set, on } = Ember;
+const { get, set, on } = Ember;
 
 /**
  * @module Ember.Component

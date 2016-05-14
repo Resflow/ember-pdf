@@ -2,7 +2,7 @@
   {{yield}}
 {{else}}
   {{thumbnailView}}
-  {{#each pageView in pageViews}}
-    {{view thumbnailViewClass pageView=pageView}}
+  {{#each pageViews as |pageView|}}
+    {{pdf-page-thumbnail pageView=pageView}}
   {{/each}}
 {{/if}}

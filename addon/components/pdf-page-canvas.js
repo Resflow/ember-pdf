@@ -1,6 +1,6 @@
 import CanvasComponent from './canvas';
 
-var PDFPageCanvasComponent = CanvasComponent.extend({
+let PDFPageCanvasComponent = CanvasComponent.extend({
   classNames: ['ember-pdf-page-canvas']
 });
 
