@@ -1,9 +1,9 @@
-{{#if template}}
+{{#if hasBlock}}
   {{yield}}
 {{else}}
 
   {{#unless isPending}}
-    
+
     {{#if isSettled}}
       {{#if isFulfilled}}
         {{#each page in pages}}
@@ -16,5 +16,5 @@
     {{/if}}
 
   {{/unless}}
-  
+
 {{/if}}

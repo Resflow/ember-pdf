@@ -1,12 +1,13 @@
 import Ember from 'ember';
 import Component from '../runtime/component';
 
-var computed = Ember.computed;
-var get = Ember.get;
-var set = Ember.set
-var on = Ember.on;
+const { computed, get, set, on } = Ember;
 
-var CanvasComponent = Component.extend({
+/**
+ * @module Ember.Component
+ * @class CanvasComponent
+ */
+export default Component.extend({
   tagName: 'canvas',
   classNames: ['ember-pdf-canvas'],
   attributeBindings: ['width', 'height'],
@@ -20,5 +21,3 @@ var CanvasComponent = Component.extend({
     set(this, 'renderingContext2d', null);
   })
 });
-
-export default CanvasComponent;
