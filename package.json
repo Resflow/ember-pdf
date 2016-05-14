@@ -1,8 +1,8 @@
 {
   "name": "ember-pdf",
-  "version": "0.0.0",
-  "description": "Small description for ember-pdf goes here",
-  "private": true,
+  "version": "0.2.0",
+  "description": "A wrapper around Pdfjs for Ember",
+  "private": false,
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -12,7 +12,10 @@
     "start": "ember server",
     "test": "ember test"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resflow/ember-pdf.git"
+  },
   "engines": {
     "node": ">= 0.10.0"
   },
@@ -39,7 +42,13 @@
     "ember-resolver": "^2.0.3",
     "loader.js": "^4.0.1"
   },
-  "keywords": {
+  "dependencies": {
+    "ember-cli-babel": "^5.1.6"
+  },
+  "keywords": [
     "ember-addon"
+  ],
+  "ember-addon": {
+    "configPath": "tests/dummy/config"
   }
 }
