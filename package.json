@@ -1,7 +1,7 @@
 {
   "name": "ember-pdf",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.2.0",
+  "description": "Ember components built around pdfjs",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -18,7 +18,7 @@
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": "Jay Phelps",
   "license": "MIT",
   "dependencies": {
     "ember-cli-htmlbars": "0.7.4"
